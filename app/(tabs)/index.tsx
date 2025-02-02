@@ -1,24 +1,31 @@
 import React from "react";
+import { ScrollView, StyleSheet } from "react-native";
 import Header from "../components/Header";
 import Background from "../components/Background";
 import RecipeCard from "../components/RecipeCard";
-import Scroll from "../components/Scroll";
+import data from "../../assets/data/data.json";
 
 export default function Index() {
-  const image = require("../../assets/images/react-logo.png");
-
   return (
     <Background>
       <Header title="Cooked" />
-      <Scroll>
-        <RecipeCard
-          image={
-            "https://plus.unsplash.com/premium_photo-1670740967011-86730910a2e5?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cmVzdGF1cmFudCUyMGZvb2R8ZW58MHx8MHx8fDA%3D"
-          }
-          title="Camarones Rebosados"
-          preparationTime="15 mins"
-        />
-      </Scroll>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        {data.data.map((item, index) => (
+          <RecipeCard
+            key={index}
+            image={item.recipes.image}
+            title={item.recipes.title}
+            preparationTime={item.recipes.preparationTime}
+          />
+        ))}
+      </ScrollView>
     </Background>
   );
 }
+
+const styles = StyleSheet.create({
+  scrollViewContent: {
+    alignItems: "center",
+    paddingVertical: 20,
+  },
+});

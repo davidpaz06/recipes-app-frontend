@@ -22,11 +22,13 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
   }
 
   return (
-    <View style={styles.cardContainer}>
-      <Image source={{ uri: image }} style={styles.cardImage} />
-      <View style={styles.cardContent}>
-        <Text style={styles.cardTitle}>{title}</Text>
-        <Text style={styles.cardTime}>{preparationTime}</Text>
+    <View style={{ width: "100%", paddingHorizontal: 20, marginBottom: 20 }}>
+      <View style={styles.cardContainer}>
+        <Image source={{ uri: image }} style={styles.cardImage} />
+        <View style={styles.cardContent}>
+          <Text style={styles.cardTitle}>{title}</Text>
+          <Text style={styles.cardTime}>{preparationTime}</Text>
+        </View>
       </View>
     </View>
   );
@@ -34,10 +36,10 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
 
 const styles = StyleSheet.create({
   cardContainer: {
-    width: "auto",
-    margin: 20,
+    width: "100%",
     borderRadius: 30,
     overflow: "hidden",
+    boxSizing: "border-box",
     backgroundColor: "#fff",
     shadowColor: "#000",
     shadowOpacity: 0.1,
