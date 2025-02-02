@@ -15,6 +15,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
 }) => {
   const [loaded] = useFonts({
     Bebas: require("../../assets/fonts/BebasNeue-Regular.ttf"),
+    Questrial: require("../../assets/fonts/Questrial-Regular.ttf"),
   });
 
   if (!loaded) {
@@ -60,10 +61,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   cardTitle: {
-    fontFamily: "Bebas",
-    fontSize: 25,
+    fontFamily: "Questrial",
+    fontSize: 18,
+    maxWidth: "80%",
     color: "#FFF",
-    fontWeight: "bold",
   },
   cardTime: {
     fontFamily: "Bebas",
