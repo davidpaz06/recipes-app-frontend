@@ -6,13 +6,26 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "#ffd33d",
+        tabBarActiveTintColor: "#FFD33D",
         headerShown: false,
         tabBarStyle: {
           backgroundColor: "#353535",
         },
       }}
     >
+      <Tabs.Screen
+        name="recipes"
+        options={{
+          title: "My Recipes",
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? "book" : "book"}
+              color={color}
+              size={24}
+            />
+          ),
+        }}
+      />
       <Tabs.Screen
         name="index"
         options={{
@@ -27,9 +40,22 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="about"
+        name="groups"
         options={{
-          title: "About",
+          title: "Groups",
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? "list" : "list"}
+              color={color}
+              size={24}
+            />
+          ),
+        }}
+      />
+      {/* <Tabs.Screen
+        name="Groups"
+        options={{
+          title: "Groups",
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
               name={
@@ -40,7 +66,7 @@ export default function TabLayout() {
             />
           ),
         }}
-      />
+      /> */}
     </Tabs>
   );
 }

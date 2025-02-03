@@ -2,15 +2,17 @@ import React from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import Header from "../components/Header";
 import Background from "../components/Background";
-import RecipeCard from "../components/RecipeCard";
+import Option from "../components/Option";
 import data from "../../assets/data.json";
 
-export default function Index() {
+export default function Groups() {
+  const options = data.groups.map((group) => ({ text: group.name }));
+
   return (
     <Background>
-      <Header title="Cooked" />
+      <Header title="Groups" />
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <RecipeCard recipes={data.recipes} />
+        <Option options={options} />
       </ScrollView>
     </Background>
   );
@@ -19,6 +21,6 @@ export default function Index() {
 const styles = StyleSheet.create({
   scrollViewContent: {
     alignItems: "center",
-    paddingVertical: 20,
+    padding: 20,
   },
 });

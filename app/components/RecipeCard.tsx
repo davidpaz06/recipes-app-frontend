@@ -2,17 +2,17 @@ import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
 
-interface RecipeCardProps {
+interface Recipe {
   image: string;
   title: string;
   preparationTime: string;
 }
 
-const RecipeCard: React.FC<RecipeCardProps> = ({
-  image,
-  title,
-  preparationTime,
-}) => {
+interface RecipeCardProps {
+  recipes: Recipe[];
+}
+
+const RecipeCard: React.FC<RecipeCardProps> = ({ recipes }) => {
   const [loaded] = useFonts({
     Bebas: require("../../assets/fonts/BebasNeue-Regular.ttf"),
     Questrial: require("../../assets/fonts/Questrial-Regular.ttf"),
@@ -23,15 +23,22 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
   }
 
   return (
-    <View style={{ width: "100%", paddingHorizontal: 20, marginBottom: 20 }}>
-      <View style={styles.cardContainer}>
-        <Image source={{ uri: image }} style={styles.cardImage} />
-        <View style={styles.cardContent}>
-          <Text style={styles.cardTitle}>{title}</Text>
-          <Text style={styles.cardTime}>{preparationTime}</Text>
+    <>
+      {recipes.map((recipe, index) => (
+        <View
+          key={index}
+          style={{ width: "100%", paddingHorizontal: 20, marginBottom: 20 }}
+        >
+          <View style={styles.cardContainer}>
+            <Image source={{ uri: recipe.image }} style={styles.cardImage} />
+            <View style={styles.cardContent}>
+              <Text style={styles.cardTitle}>{recipe.title}</Text>
+              <Text style={styles.cardTime}>{recipe.preparationTime}</Text>
+            </View>
+          </View>
         </View>
-      </View>
-    </View>
+      ))}
+    </>
   );
 };
 
