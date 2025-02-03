@@ -6,12 +6,14 @@ interface RecipeCardProps {
   image: string;
   title: string;
   preparationTime: string;
+  style?: object;
 }
 
 const RecipeCard: React.FC<RecipeCardProps> = ({
   image,
   title,
   preparationTime,
+  style,
 }) => {
   const [loaded] = useFonts({
     Bebas: require("../../assets/fonts/BebasNeue-Regular.ttf"),
