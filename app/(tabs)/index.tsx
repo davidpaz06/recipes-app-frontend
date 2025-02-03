@@ -20,5 +20,4 @@ const styles = StyleSheet.create({
   scrollViewContent: {
     alignItems: "center",
     paddingVertical: 20,
-  },
-});
+

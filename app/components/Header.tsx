@@ -25,7 +25,7 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
 const styles = StyleSheet.create({
   headerContainer: {
     width: "100%",
-    paddingTop: 50,
+    paddingVertical: 15,
     paddingLeft: 20,
     backgroundColor: "#353535",
     justifyContent: "center",
