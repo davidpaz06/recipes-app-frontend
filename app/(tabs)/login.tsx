@@ -5,12 +5,32 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-    // Aquí puedes agregar la lógica de autenticación
-    if (email === "test@example.com" && password === "password") {
-      Alert.alert("Login Successful", "Welcome!");
-    } else {
-      Alert.alert("Login Failed", "Invalid email or password");
+  const handleLogin = async () => {
+    try {
+      const response = await fetch("https://your-api-url.com/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        Alert.alert("Login Successful", "Welcome!");
+        // Aquí puedes manejar el éxito del login, como navegar a otra pantalla
+      } else {
+        Alert.alert(
+          "Login Failed",
+          data.message || "Invalid email or password"
+        );
+      }
+    } catch (error) {
+      Alert.alert("Login Failed", "An error occurred. Please try again.");
     }
   };
 
