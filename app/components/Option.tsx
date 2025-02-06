@@ -2,15 +2,11 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
 
-interface Option {
+interface OptionProps {
   text: string;
 }
 
-interface OptionProps {
-  options: Option[];
-}
-
-const Option: React.FC<OptionProps> = ({ options }) => {
+const Option: React.FC<OptionProps> = ({ text }) => {
   const [loaded] = useFonts({
     Questrial: require("../../assets/fonts/Questrial-Regular.ttf"),
   });
@@ -20,14 +16,10 @@ const Option: React.FC<OptionProps> = ({ options }) => {
   }
 
   return (
-    <>
-      {options.map((option, index) => (
-        <View key={index} style={styles.container}>
-          <Text style={styles.text}>{option.text}</Text>
-          <Text style={styles.arrow}>{">"}</Text>
-        </View>
-      ))}
-    </>
+    <View style={styles.container}>
+      <Text style={styles.text}>{text}</Text>
+      <Text style={styles.arrow}>{">"}</Text>
+    </View>
   );
 };
 

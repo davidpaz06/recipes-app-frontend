@@ -2,7 +2,7 @@ import React from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import Header from "../components/Header";
 import Background from "../components/Background";
-import RecipeCard from "../components/RecipeCard";
+import RecipeList from "../components/RecipeList";
 import data from "../../assets/data.json";
 
 export default function Index() {
@@ -10,7 +10,10 @@ export default function Index() {
     <Background>
       <Header title="Cooked" />
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <RecipeCard recipes={data.recipes} />
+        <RecipeList
+          listTitle="PLATOS DIFICULTAD MEDIA"
+          recipes={data.recipes}
+        />
       </ScrollView>
     </Background>
   );

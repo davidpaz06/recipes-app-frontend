@@ -1,16 +1,59 @@
-import React from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import { ScrollView, StyleSheet, ActivityIndicator, Alert } from "react-native";
 import Header from "../components/Header";
 import Background from "../components/Background";
+import List from "../components/List";
 import RecipeCard from "../components/RecipeCard";
-import data from "../../assets/data.json";
+
+interface Recipe {
+  image: string;
+  name: string;
+  preparationTime: string;
+}
 
 export default function Index() {
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      try {
+        const response = await fetch("http://192.168.1.170:3000/recipes");
+        const data = await response.json();
+
+        if (response.ok) {
+          setRecipes(data.recipes);
+        } else {
+          Alert.alert("Error", data.message || "Failed to fetch recipes");
+        }
+      } catch (error) {
+        Alert.alert("Error", "An error occurred. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRecipes();
+  }, []);
+
+  if (loading) {
+    return (
+      <Background>
+        <Header title="Cooked" />
+        <ActivityIndicator size="large" color="#353535" />
+      </Background>
+    );
+  }
+
   return (
     <Background>
       <Header title="Cooked" />
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <RecipeCard recipes={data.recipes} />
+        <List>
+          {recipes.map((recipe, index) => (
+            <RecipeCard key={index} recipe={recipe} />
+          ))}
+        </List>
       </ScrollView>
     </Background>
   );

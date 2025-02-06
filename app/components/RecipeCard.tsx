@@ -4,15 +4,15 @@ import { useFonts } from "expo-font";
 
 interface Recipe {
   image: string;
-  title: string;
+  name: string;
   preparationTime: string;
 }
 
 interface RecipeCardProps {
-  recipes: Recipe[];
+  recipe: Recipe;
 }
 
-const RecipeCard: React.FC<RecipeCardProps> = ({ recipes }) => {
+const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
   const [loaded] = useFonts({
     Bebas: require("../../assets/fonts/BebasNeue-Regular.ttf"),
     Questrial: require("../../assets/fonts/Questrial-Regular.ttf"),
@@ -23,22 +23,15 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipes }) => {
   }
 
   return (
-    <>
-      {recipes.map((recipe, index) => (
-        <View
-          key={index}
-          style={{ width: "100%", paddingHorizontal: 20, marginBottom: 20 }}
-        >
-          <View style={styles.cardContainer}>
-            <Image source={{ uri: recipe.image }} style={styles.cardImage} />
-            <View style={styles.cardContent}>
-              <Text style={styles.cardTitle}>{recipe.title}</Text>
-              <Text style={styles.cardTime}>{recipe.preparationTime}</Text>
-            </View>
-          </View>
+    <View style={{ width: "100%", paddingHorizontal: 20, marginBottom: 20 }}>
+      <View style={styles.cardContainer}>
+        <Image source={{ uri: recipe.image }} style={styles.cardImage} />
+        <View style={styles.cardContent}>
+          <Text style={styles.cardName}>{recipe.name}</Text>
+          <Text style={styles.cardTime}>{recipe.preparationTime}</Text>
         </View>
-      ))}
-    </>
+      </View>
+    </View>
   );
 };
 
@@ -67,7 +60,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  cardTitle: {
+  cardName: {
     fontFamily: "Questrial",
     fontSize: 18,
     maxWidth: "80%",

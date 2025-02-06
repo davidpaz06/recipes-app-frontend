@@ -2,18 +2,18 @@ import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
     try {
-      const response = await fetch("https://your-api-url.com/login", {
+      const response = await fetch("http://192.168.1.170:3000/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: email,
+          username: username,
           password: password,
         }),
       });
@@ -26,7 +26,7 @@ const Login: React.FC = () => {
       } else {
         Alert.alert(
           "Login Failed",
-          data.message || "Invalid email or password"
+          data.message || "Invalid username or password"
         );
       }
     } catch (error) {
@@ -39,10 +39,9 @@ const Login: React.FC = () => {
       <Text style={styles.title}>Login</Text>
       <TextInput
         style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
+        placeholder="Username"
+        value={username}
+        onChangeText={setUsername}
         autoCapitalize="none"
       />
       <TextInput

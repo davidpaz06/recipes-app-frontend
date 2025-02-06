@@ -2,6 +2,7 @@ import React from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import Header from "../components/Header";
 import Background from "../components/Background";
+import List from "../components/List";
 import Option from "../components/Option";
 import data from "../../assets/data.json";
 
@@ -10,9 +11,13 @@ export default function Groups() {
 
   return (
     <Background>
-      <Header title="Groups" />
+      <Header title="COOKED" />
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <Option options={options} />
+        <List>
+          {options.map((option, index) => (
+            <Option key={index} text={option.text} />
+          ))}
+        </List>
       </ScrollView>
     </Background>
   );

@@ -3,25 +3,25 @@
     {
       "id": 1,
       "image": "https://plus.unsplash.com/premium_photo-1670740967011-86730910a2e5?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cmVzdGF1cmFudCUyMGZvb2R8ZW58MHx8MHx8fDA%3D",
-      "title": "Camarones Rebozados",
+      "name": "Camarones Rebozados",
       "preparationTime": "10 mins"
     },
     {
       "id": 2,
       "image": "https://assets.unileversolutions.com/recipes-v2/250591.jpg?im=Resize,height=580;Crop,size=(632,580),gravity=Center",
-      "title": "Pasta alfredo con champiñones",
+      "name": "Pasta alfredo con champiñones",
       "preparationTime": "15 mins"
     },
     {
       "id": 3,
       "image": "https://www.justonecookbook.com/wp-content/uploads/2020/06/Dragon-Roll-0286-I.jpg",
-      "title": "Dragon Roll",
+      "name": "Dragon Roll",
       "preparationTime": "8 mins"
     },
     {
       "id": 4,
       "image": "https://w6h5a5r4.delivery.rocketcdn.me/wp-content/uploads/2019/06/pizza-con-chorizo-jamon-y-queso-1080x671.jpg",
-      "title": "Pizza de Pepperoni",
+      "name": "Pizza de Pepperoni",
       "preparationTime": "50 mins"
     }
   ],
@@ -72,7 +72,7 @@
     },
     {
       "id": 5,
-      "name": "Recetas de la abuela",
+      "name": "Recetas de la abuela muerta de hambre",
       "user_id": [1, 2, 3],
       "group_id": [2, 3]
     }
