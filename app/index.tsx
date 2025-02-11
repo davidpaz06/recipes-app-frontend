@@ -9,12 +9,14 @@ import {
   StatusBar,
 } from "react-native";
 import { useRouter } from "expo-router";
+import { useAuth } from "./context/AuthContext";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { API_ROUTES } from "../apiConfig";
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { setAccessToken, setRefreshToken } = useAuth();
   const router = useRouter();
 
   const handleLogin = async () => {
@@ -30,14 +32,19 @@ const Login: React.FC = () => {
         }),
       });
 
-      const data = await response.json();
+      const result = await response.json();
+      console.log(result);
 
       if (response.ok) {
+        const { accessToken, refreshToken } = result.data;
+        setAccessToken(accessToken);
+        setRefreshToken(refreshToken);
         router.replace("/(tabs)/home");
+        console.log(accessToken);
       } else {
         Alert.alert(
           "Login Failed",
-          data.message || "Invalid username or password"
+          result.message || "Invalid username or password"
         );
       }
     } catch (error) {
