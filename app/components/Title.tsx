@@ -1,25 +1,23 @@
 import React from "react";
-import { Text, StyleSheet, ImageBackground, View } from "react-native";
-import MaskedView from "@react-native-community/masked-view";
+import { Text, StyleSheet, View } from "react-native";
 
 interface TitleProps {
-  text: string;
-  backgroundImage: any;
+  children: string;
 }
 
-const Title: React.FC<TitleProps> = ({ text }) => {
+const Title: React.FC<TitleProps> = ({ children }) => {
   return (
     <View>
-      <Text style={styles.text}>{text}</Text>
+      <Text style={styles.text}>{children}</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 100,
+    fontSize: 60,
+    paddingHorizontal: 20,
     fontFamily: "Bebas",
-    textAlign: "center",
     color: "#353535",
   },
 });

@@ -3,9 +3,9 @@ import { View, Text, Image, StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
 
 interface Recipe {
-  image: string;
-  name: string;
-  preparationTime: string;
+  imageUrl: string | null;
+  title: string;
+  prepTime: number;
 }
 
 interface RecipeCardProps {
@@ -22,13 +22,18 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
     return null;
   }
 
+  const imageUrl =
+    recipe.imageUrl && recipe.imageUrl.trim() !== ""
+      ? recipe.imageUrl
+      : "https://www.foodiesfeed.com/wp-content/uploads/2023/05/juicy-cheeseburger.jpg"; // URL de imagen predeterminada
+
   return (
     <View style={{ width: "100%", paddingHorizontal: 20, marginBottom: 20 }}>
       <View style={styles.cardContainer}>
-        <Image source={{ uri: recipe.image }} style={styles.cardImage} />
+        <Image source={{ uri: imageUrl }} style={styles.cardImage} />
         <View style={styles.cardContent}>
-          <Text style={styles.cardName}>{recipe.name}</Text>
-          <Text style={styles.cardTime}>{recipe.preparationTime}</Text>
+          <Text style={styles.cardName}>{recipe.title}</Text>
+          <Text style={styles.cardTime}>{recipe.prepTime} mins</Text>
         </View>
       </View>
     </View>

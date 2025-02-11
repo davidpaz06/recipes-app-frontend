@@ -1,12 +1,47 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
+import RecipeCard from "./RecipeCard";
+import Option from "./Option";
+import Title from "./Title";
 
-interface ListProps {
-  children: React.ReactNode;
+interface Recipe {
+  id: number;
+  title: string;
+  description: string;
+  ingredients: string;
+  prepTime: number;
+  createdBy: number;
+  imageUrl: string;
 }
 
-const List: React.FC<ListProps> = ({ children }) => {
-  return <View style={styles.listContainer}>{children}</View>;
+interface OptionItem {
+  text: string;
+}
+
+interface ListProps {
+  items: Recipe[] | OptionItem[];
+  type: "recipe" | "option";
+  listTitle?: string;
+}
+
+const List: React.FC<ListProps> = ({ items, type, listTitle }) => {
+  if (!items || items.length === 0) {
+    return null;
+  }
+
+  return (
+    <View style={styles.listContainer}>
+      {listTitle && <Title>{listTitle}</Title>}
+      {type === "recipe" &&
+        (items as Recipe[]).map((item) => (
+          <RecipeCard key={item.id} recipe={item} />
+        ))}
+      {type === "option" &&
+        (items as OptionItem[]).map((item, index) => (
+          <Option key={index} text={item.text} />
+        ))}
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({

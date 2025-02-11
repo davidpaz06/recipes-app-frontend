@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
+import { API_ROUTES } from "../apiConfig";
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState("");
@@ -7,7 +8,7 @@ const Login: React.FC = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch("http://192.168.1.170:3000/users/login", {
+      const response = await fetch(API_ROUTES.LOGIN, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
