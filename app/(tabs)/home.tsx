@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import Background from "../components/Background";
 import List from "../components/List";
 import ScrollUpdate from "../components/ScrollUpdate";
-import { API_ROUTES } from "../apiConfig";
+import { API_ROUTES } from "../../apiConfig";
 
 interface Recipe {
   id: number;

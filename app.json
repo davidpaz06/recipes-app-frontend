@@ -15,6 +15,14 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/im-cooked.webp",
         "backgroundColor": "pink"
+      },
+      "statusBar": {
+        "backgroundColor": "transparent",
+        "translucent": true
+      },
+      "navigationBar": {
+        "backgroundColor": "#000000",
+        "barStyle": "light-content"
       }
     },
     "web": {
