@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
-import { API_ROUTES } from "../apiConfig";
+import { useRouter } from "expo-router";
+import { API_ROUTES } from "./apiConfig";
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
   const handleLogin = async () => {
     try {
@@ -22,8 +24,7 @@ const Login: React.FC = () => {
       const data = await response.json();
 
       if (response.ok) {
-        Alert.alert("Login Successful", "Welcome!");
-        // Aquí puedes manejar el éxito del login, como navegar a otra pantalla
+        router.replace("/(tabs)/home");
       } else {
         Alert.alert(
           "Login Failed",

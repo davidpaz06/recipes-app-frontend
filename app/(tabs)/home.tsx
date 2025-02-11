@@ -16,7 +16,7 @@ interface Recipe {
   imageUrl: string;
 }
 
-export default function Index() {
+export default function Home() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
 
