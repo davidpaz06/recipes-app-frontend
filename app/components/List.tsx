@@ -25,7 +25,11 @@ interface ListProps {
 }
 
 const List: React.FC<ListProps> = ({ items, type, listTitle }) => {
-  if (!items || items.length === 0) {
+  if (!Array.isArray(items) || items.length === 0) {
+    console.error(
+      "Se esperaba que items fuera un array, pero se obtuvo",
+      items
+    );
     return null;
   }
 
