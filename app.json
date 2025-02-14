@@ -25,6 +25,9 @@
         "barStyle": "light-content"
       }
     },
+    "androidNavigationBar": {
+      "visible": "immersive"
+    },
     "web": {
       "bundler": "metro",
       "output": "static",

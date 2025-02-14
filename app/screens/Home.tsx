@@ -16,13 +16,13 @@ interface Recipe {
   imageUrl: string;
 }
 
-export default function Recipes() {
+export default function Home() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
 
   const fetchRecipes = async () => {
     try {
-      const response = await fetch(`${API_ROUTES.RECIPES_BY_USER}/1`);
+      const response = await fetch(API_ROUTES.RECIPES);
       const data = await response.json();
 
       if (response.ok) {

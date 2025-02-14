@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, View, ActivityIndicator } from "react-native";
 import Header from "../components/Header";
 import Background from "../components/Background";
 import List from "../components/List";
-import data from "../../assets/data.json";
 import { API_ROUTES } from "../../apiConfig";
 import { useAuth } from "../context/AuthContext";
 
@@ -14,7 +13,7 @@ export default function Groups() {
 
   const fetchGroups = async () => {
     try {
-      const response = await fetch(API_ROUTES.GROUPS, {
+      const response = await fetch(API_ROUTES.USERGROUPS, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -35,25 +34,39 @@ export default function Groups() {
     }
   };
 
-  const options = data.groups.map((group) => ({ text: group.name }));
   useEffect(() => {
     fetchGroups();
   }, []);
 
-  console.log(groups);
-  const groupNames = groups.map((group) => group.name);
-  console.log(groupNames);
+  const options = groups.map((group) => ({ text: group.name }));
+
   return (
     <Background>
-      <Header title="COOKED" />
-      <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <List items={options} type="option" />
-      </ScrollView>
+      <View style={styles.container}>
+        <Header title="COOKED" onPress={fetchGroups} />
+        {loading ? (
+          <View style={styles.loaderContainer}>
+            <ActivityIndicator size="large" color="#353535" />
+          </View>
+        ) : (
+          <ScrollView contentContainerStyle={styles.scrollViewContent}>
+            <List items={options} type="option" />
+          </ScrollView>
+        )}
+      </View>
     </Background>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  loaderContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   scrollViewContent: {
     alignItems: "center",
     padding: 20,

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Platform } from "react-native";
 import { useFonts } from "expo-font";
 
 interface OptionProps {
@@ -26,7 +26,7 @@ const Option: React.FC<OptionProps> = ({ text }) => {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    padding: 15,
+    padding: Platform.OS === "ios" ? 15 : 10,
     marginVertical: 5,
     borderRadius: 20,
     backgroundColor: "#F0F0F0",
@@ -34,14 +34,15 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   text: {
-    fontSize: 22,
+    fontSize: Platform.OS === "ios" ? 22 : 18,
     fontFamily: "Questrial",
     maxWidth: "90%",
   },
   arrow: {
-    fontSize: 20,
+    fontSize: 15,
     fontFamily: "Questrial",
     maxWidth: "5%",
+    marginVertical: "auto",
   },
 });
 

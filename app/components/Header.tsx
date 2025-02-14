@@ -1,12 +1,19 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Platform,
+  TouchableOpacity,
+} from "react-native";
 import { useFonts } from "expo-font";
 
 interface HeaderProps {
   title: string;
+  onPress?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ title }) => {
+const Header: React.FC<HeaderProps> = ({ title, onPress }) => {
   const [loaded] = useFonts({
     Bebas: require("../../assets/fonts/BebasNeue-Regular.ttf"),
   });
@@ -17,7 +24,9 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
 
   return (
     <View style={styles.headerContainer}>
-      <Text style={styles.headerText}>{title}</Text>
+      <TouchableOpacity onPress={onPress}>
+        <Text style={styles.headerText}>{title}</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -25,15 +34,16 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
 const styles = StyleSheet.create({
   headerContainer: {
     width: "100%",
-    paddingTop: 20,
+    paddingTop: Platform.select({
+      ios: 40,
+      android: 10,
+    }),
     paddingLeft: 20,
     backgroundColor: "#353535",
     justifyContent: "center",
   },
   headerText: {
-    paddingTop: 20,
     fontSize: 50,
-    fontWeight: "bold",
     color: "#D1D1D1",
     textAlign: "left",
     fontFamily: "Bebas",

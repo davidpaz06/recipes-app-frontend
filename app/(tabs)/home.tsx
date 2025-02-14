@@ -35,6 +35,7 @@ export default function Home() {
     } finally {
       setLoading(false);
     }
+    console.log("fetchRecipes");
   };
 
   useEffect(() => {
@@ -43,7 +44,7 @@ export default function Home() {
 
   return (
     <Background>
-      <Header title="Cooked" />
+      <Header title="Cooked" onPress={fetchRecipes} />
       {loading ? (
         <View style={{ flex: 1, justifyContent: "center" }}>
           <ActivityIndicator size="large" color="#353535" />

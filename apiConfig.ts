@@ -1,9 +1,10 @@
-const BASE_URL = "http://192.168.0.195:3000";
+const BASE_URL = "http://192.168.1.170:3000";
 
 const API_ROUTES = {
   RECIPES: `${BASE_URL}/recipes`,
+  RECIPES_BY_USER: `${BASE_URL}/recipes/user`,
   LOGIN: `${BASE_URL}/users/login`,
-  GROUPS: `${BASE_URL}/groups`,
+  USERGROUPS: `${BASE_URL}/groups`,
   // Agrega más rutas según sea necesario
 };
 
