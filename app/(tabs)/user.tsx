@@ -5,6 +5,7 @@ import Background from "../components/Background";
 import List from "../components/List";
 import ScrollUpdate from "../components/ScrollUpdate";
 import { API_ROUTES } from "../../apiConfig";
+import { useAuth } from "../context/AuthContext";
 
 interface Recipe {
   id: number;
@@ -19,10 +20,17 @@ interface Recipe {
 export default function Recipes() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
+  const { accessToken } = useAuth();
 
   const fetchRecipes = async () => {
     try {
-      const response = await fetch(`${API_ROUTES.RECIPES_BY_USER}/1`);
+      const response = await fetch(API_ROUTES.RECIPES_BY_USER, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}` || "",
+        },
+      });
       const data = await response.json();
 
       if (response.ok) {
@@ -43,7 +51,7 @@ export default function Recipes() {
 
   return (
     <Background>
-      <Header title="Cooked" />
+      <Header title="Cooked" onPress={fetchRecipes} />
       {loading ? (
         <View style={{ flex: 1, justifyContent: "center" }}>
           <ActivityIndicator size="large" color="#353535" />
@@ -53,7 +61,7 @@ export default function Recipes() {
           contentContainerStyle={styles.scrollViewContent}
           onUpdate={fetchRecipes}
         >
-          <List items={recipes} type="recipe" listTitle="Recipes" />
+          <List items={recipes} type="recipe" listTitle="My Recipes" />
         </ScrollUpdate>
       )}
     </Background>

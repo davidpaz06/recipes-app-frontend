@@ -16,6 +16,7 @@ interface Recipe {
 
 interface OptionItem {
   text: string;
+  onPress?: () => void;
 }
 
 interface ListProps {
@@ -42,7 +43,7 @@ const List: React.FC<ListProps> = ({ items, type, listTitle }) => {
         ))}
       {type === "option" &&
         (items as OptionItem[]).map((item, index) => (
-          <Option key={index} text={item.text} />
+          <Option key={index} text={item.text} onPress={item.onPress} />
         ))}
     </View>
   );

@@ -1,12 +1,19 @@
 import React from "react";
-import { View, Text, StyleSheet, Platform } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Platform,
+  TouchableOpacity,
+} from "react-native";
 import { useFonts } from "expo-font";
 
 interface OptionProps {
   text: string;
+  onPress?: () => void; // Propiedad opcional para la función de manejo de eventos
 }
 
-const Option: React.FC<OptionProps> = ({ text }) => {
+const Option: React.FC<OptionProps> = ({ text, onPress }) => {
   const [loaded] = useFonts({
     Questrial: require("../../assets/fonts/Questrial-Regular.ttf"),
   });
@@ -16,10 +23,10 @@ const Option: React.FC<OptionProps> = ({ text }) => {
   }
 
   return (
-    <View style={styles.container}>
+    <TouchableOpacity onPress={onPress} style={styles.container}>
       <Text style={styles.text}>{text}</Text>
       <Text style={styles.arrow}>{">"}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 
