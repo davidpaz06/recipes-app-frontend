@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, ActivityIndicator, Alert } from "react-native";
-import Header from "../components/Header";
+import {
+  StyleSheet,
+  View,
+  ActivityIndicator,
+  Alert,
+  ScrollView,
+} from "react-native";
 import Background from "../components/Background";
+import Header from "../components/Header";
+import CustomScroll from "../components/CustomScroll";
 import List from "../components/List";
-import ScrollUpdate from "../components/ScrollUpdate";
 import { API_ROUTES } from "../../apiConfig";
+import useAPI from "../hooks/useAPI";
 
 interface Recipe {
   id: number;
@@ -18,24 +25,16 @@ interface Recipe {
 
 export default function Home() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { apiRequest, loading } = useAPI();
 
   const fetchRecipes = async () => {
-    try {
-      const response = await fetch(API_ROUTES.RECIPES);
-      const data = await response.json();
+    const data = await apiRequest({
+      method: "GET",
+      url: API_ROUTES.RECIPES,
+      headers: true,
+    });
 
-      if (response.ok) {
-        setRecipes(data);
-      } else {
-        Alert.alert("Error", data.message || "Failed to fetch recipes");
-      }
-    } catch (error) {
-      Alert.alert("Error", "An error occurred. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-    console.log("fetchRecipes");
+    setRecipes(data);
   };
 
   useEffect(() => {
@@ -50,12 +49,9 @@ export default function Home() {
           <ActivityIndicator size="large" color="#353535" />
         </View>
       ) : (
-        <ScrollUpdate
-          contentContainerStyle={styles.scrollViewContent}
-          onUpdate={fetchRecipes}
-        >
+        <CustomScroll contentContainerStyle={styles.scrollViewContent}>
           <List items={recipes} type="recipe" listTitle="Recipes" />
-        </ScrollUpdate>
+        </CustomScroll>
       )}
     </Background>
   );

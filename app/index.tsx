@@ -40,7 +40,6 @@ const Login: React.FC = () => {
         setAccessToken(accessToken);
         setRefreshToken(refreshToken);
         router.replace("/(tabs)/home");
-        console.log(accessToken);
       } else {
         Alert.alert(
           "Login Failed",

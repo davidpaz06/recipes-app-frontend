@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { View, Text, Image, StyleSheet, ActivityIndicator } from "react-native";
 import { useFonts } from "expo-font";
 
 interface Recipe {
@@ -18,6 +18,8 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
     Questrial: require("../../assets/fonts/Questrial-Regular.ttf"),
   });
 
+  const [imageLoading, setImageLoading] = useState(true);
+
   if (!loaded) {
     return null;
   }
@@ -30,7 +32,21 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
   return (
     <View style={{ width: "100%", paddingHorizontal: 20, marginBottom: 20 }}>
       <View style={styles.cardContainer}>
-        <Image source={{ uri: imageUrl }} style={styles.cardImage} />
+        <View style={styles.imageContainer}>
+          {imageLoading && (
+            <ActivityIndicator
+              style={styles.loader}
+              size="large"
+              color="#353535"
+            />
+          )}
+          <Image
+            source={{ uri: imageUrl }}
+            style={styles.cardImage}
+            onLoad={() => setImageLoading(false)}
+            onError={() => setImageLoading(false)}
+          />
+        </View>
         <View style={styles.cardContent}>
           <Text style={styles.cardName}>{recipe.title}</Text>
           <Text style={styles.cardTime}>{recipe.prepTime} mins</Text>
@@ -53,9 +69,21 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 5,
   },
-  cardImage: {
+  imageContainer: {
+    position: "relative",
     width: "100%",
     height: 170,
+  },
+  cardImage: {
+    width: "100%",
+    height: "100%",
+    position: "absolute",
+  },
+  loader: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: [{ translateX: -25 }, { translateY: -25 }],
   },
   cardContent: {
     backgroundColor: "#353535",

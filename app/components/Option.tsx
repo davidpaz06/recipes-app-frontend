@@ -1,12 +1,6 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Platform,
-  TouchableOpacity,
-} from "react-native";
-import { useFonts } from "expo-font";
+import { View, StyleSheet, Platform, TouchableOpacity } from "react-native";
+import CustomText from "./CustomText";
 
 interface OptionProps {
   text: string;
@@ -14,18 +8,10 @@ interface OptionProps {
 }
 
 const Option: React.FC<OptionProps> = ({ text, onPress }) => {
-  const [loaded] = useFonts({
-    Questrial: require("../../assets/fonts/Questrial-Regular.ttf"),
-  });
-
-  if (!loaded) {
-    return null;
-  }
-
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
-      <Text style={styles.text}>{text}</Text>
-      <Text style={styles.arrow}>{">"}</Text>
+      <CustomText style={styles.text}>{text}</CustomText>
+      <CustomText style={styles.arrow}>{">"}</CustomText>
     </TouchableOpacity>
   );
 };
