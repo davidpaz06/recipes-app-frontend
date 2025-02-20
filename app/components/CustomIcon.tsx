@@ -15,7 +15,7 @@ const CustomIcon: React.FC<CustomIconProps> = ({
   name,
   size = 35,
   color = "#F1F1F1",
-  activeColor = "#FFD33D",
+  activeColor,
   style,
   onPress,
 }) => {
@@ -28,22 +28,24 @@ const CustomIcon: React.FC<CustomIconProps> = ({
     }
   };
 
-  return (
+  return onPress ? (
     <TouchableOpacity onPress={handlePress}>
       <Icon
         name={name}
         size={size}
-        color={isActive ? activeColor : color}
+        color={isActive && activeColor ? activeColor : color}
         style={[styles.icon, style]}
       />
     </TouchableOpacity>
+  ) : (
+    <Icon name={name} size={size} color={color} style={[styles.icon, style]} />
   );
 };
 
 const styles = StyleSheet.create({
   icon: {
     flex: 1,
-    paddingBottom: 5,
+    textAlign: "center",
   },
 });
 

@@ -1,6 +1,15 @@
 import React, { useState } from "react";
-import { View, Text, Image, StyleSheet, ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ActivityIndicator,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import { useFonts } from "expo-font";
+import { useRouter } from "expo-router";
 
 interface Recipe {
   imageUrl: string | null;
@@ -10,15 +19,17 @@ interface Recipe {
 
 interface RecipeCardProps {
   recipe: Recipe;
+  onLongPress?: () => void;
 }
 
-const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
+const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, onLongPress }) => {
   const [loaded] = useFonts({
     Bebas: require("../../assets/fonts/BebasNeue-Regular.ttf"),
     Questrial: require("../../assets/fonts/Questrial-Regular.ttf"),
   });
 
   const [imageLoading, setImageLoading] = useState(true);
+  const router = useRouter();
 
   if (!loaded) {
     return null;
@@ -29,8 +40,18 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
       ? recipe.imageUrl
       : "https://www.foodiesfeed.com/wp-content/uploads/2023/05/juicy-cheeseburger.jpg"; // URL de imagen predeterminada
 
+  const handlePress = () => {
+    router.push("/recipeView");
+  };
+
   return (
-    <View style={{ width: "100%", paddingHorizontal: 20, marginBottom: 20 }}>
+    <TouchableOpacity
+      onPress={handlePress}
+      onLongPress={onLongPress}
+      activeOpacity={0.85}
+      delayPressIn={20}
+      style={{ width: "100%", paddingHorizontal: 20, marginBottom: 20 }}
+    >
       <View style={styles.cardContainer}>
         <View style={styles.imageContainer}>
           {imageLoading && (
@@ -52,7 +73,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
           <Text style={styles.cardTime}>{recipe.prepTime} mins</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

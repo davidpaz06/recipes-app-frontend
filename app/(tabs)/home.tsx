@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  View,
-  ActivityIndicator,
-  Alert,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, View, ActivityIndicator } from "react-native";
 import Background from "../components/Background";
 import Header from "../components/Header";
 import CustomScroll from "../components/CustomScroll";
