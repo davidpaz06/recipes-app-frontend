@@ -6,15 +6,18 @@ import {
   StyleSheet,
   ActivityIndicator,
   TouchableOpacity,
-  Alert,
 } from "react-native";
 import { useFonts } from "expo-font";
 import { useRouter } from "expo-router";
+import { useRecipe } from "../context/RecipeContext";
 
 interface Recipe {
   imageUrl: string | null;
   title: string;
   prepTime: number;
+  id: number;
+  description: string;
+  ingredients: string;
 }
 
 interface RecipeCardProps {
@@ -30,6 +33,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, onLongPress }) => {
 
   const [imageLoading, setImageLoading] = useState(true);
   const router = useRouter();
+  const { setActiveRecipe } = useRecipe();
 
   if (!loaded) {
     return null;
@@ -41,6 +45,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, onLongPress }) => {
       : "https://www.foodiesfeed.com/wp-content/uploads/2023/05/juicy-cheeseburger.jpg"; // URL de imagen predeterminada
 
   const handlePress = () => {
+    setActiveRecipe(recipe);
     router.push("/recipeView");
   };
 

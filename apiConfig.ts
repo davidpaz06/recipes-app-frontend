@@ -1,5 +1,6 @@
-const BASE_URL = "http://192.168.1.170:3000"; //Sarajevo
+// const BASE_URL = "http://192.168.1.170:3000"; //Sarajevo
 // const BASE_URL = "http://172.20.10.8:3000"; //Troco
+const BASE_URL = "http://192.168.137.42:3000"; //Temporal
 
 const API_ROUTES = {
   //----------------------------- GET -----------------------------//

@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, ReactNode } from "react";
+import React, { createContext, useContext, useState, ReactNode } from "react";
 
 interface AuthContextProps {
   accessToken: string | null;
@@ -31,3 +31,5 @@ export const useAuth = (): AuthContextProps => {
   }
   return context;
 };
+
+export default AuthProvider;

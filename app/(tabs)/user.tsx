@@ -7,8 +7,6 @@ import List from "../components/List";
 import { API_ROUTES } from "../../apiConfig";
 import useAPI from "../hooks/useAPI";
 import UsernameBar from "../components/UsernameBar";
-import Container from "app/components/Container";
-import CustomIcon from "app/components/CustomIcon";
 import New from "app/components/New";
 
 interface Recipe {
