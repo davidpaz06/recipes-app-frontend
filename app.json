@@ -4,26 +4,23 @@
     "slug": "app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/im-cooked.png",
+    "icon": "./assets/images/cooked-logo.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.stroconisf.app",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/im-cooked.png",
-        "backgroundColor": "pink"
+        "foregroundImage": "./assets/images/cooked-logo.png",
+        "backgroundColor": "#D1D1D1"
       },
-      "statusBar": {
-        "backgroundColor": "transparent",
-        "translucent": true
-      },
-      "navigationBar": {
-        "backgroundColor": "#000000",
-        "barStyle": "light-content"
-      }
+      "package": "com.stroconisf.app"
     },
     "androidNavigationBar": {
       "visible": "immersive"
@@ -31,23 +28,31 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/im-cooked.png"
+      "favicon": "./assets/images/cooked-logo.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/im-cooked.png",
+          "image": "./assets/images/cooked-logo.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "pink"
+          "backgroundColor": "#D1D1D1"
         }
       ],
       "expo-font"
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "adee2904-7c7e-4e1e-b0c7-d9600ad1f661"
+      }
     }
   }
 }

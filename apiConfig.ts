@@ -1,6 +1,6 @@
 // const BASE_URL = "http://192.168.1.170:3000"; //Sarajevo
-const BASE_URL = "http://192.168.1.132:3000"; //Sarajevo David
-// const BASE_URL = "http://172.20.10.8:3000"; //Troco
+// const BASE_URL = "http://192.168.1.132:3000"; //Sarajevo David
+const BASE_URL = "http://172.20.10.8:3000"; //Troco
 
 const API_ROUTES = {
   //----------------------------- GET -----------------------------//
@@ -10,7 +10,7 @@ const API_ROUTES = {
   RECIPES_BY_USER: `${BASE_URL}/recipes/user`, //RECETAS DEL USUARIO
 
   //GROUPS
-  GROUPS_BY_USER: `${BASE_URL}/groups`, //GRUPOS DEL USUARIO
+  GROUPS: `${BASE_URL}/groups`, //GRUPOS DEL USUARIO
 
   //----------------------------- POST -----------------------------//
 

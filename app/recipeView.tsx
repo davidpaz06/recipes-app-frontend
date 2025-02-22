@@ -79,12 +79,17 @@ const RecipeView: React.FC = () => {
         <CustomText fontFamily="Bebas" style={styles.title}>
           {activeRecipe.title}
         </CustomText>
+        <CustomText style={styles.prepTime}>
+          {activeRecipe.prepTime} mins
+        </CustomText>
+        <CustomText style={{ paddingLeft: 10, fontSize: 25 }}>
+          Ingredients
+        </CustomText>
+        <CustomText fontFamily="Questrial" style={styles.ingredients}>
+          {activeRecipe.ingredients}
+        </CustomText>
+        <CustomText style={{ paddingLeft: 10, fontSize: 25 }}>Steps</CustomText>
         <Text style={styles.description}>{activeRecipe.description}</Text>
-        <Text style={styles.prepTime}>
-          Prep Time: {activeRecipe.prepTime} mins
-        </Text>
-        <Text style={styles.steps}>Ingredients</Text>
-        <Text style={styles.ingredients}>{activeRecipe.ingredients}</Text>
       </View>
     </Background>
   );
@@ -142,29 +147,26 @@ const styles = StyleSheet.create({
     fontSize: 35,
     marginBottom: 10,
   },
-  description: {
-    backgroundColor: "#ffffff",
+  prepTime: {
     color: "#353535",
     borderColor: "#353535",
-    borderLeftWidth: 1,
-    borderTopWidth: 1,
-    borderBottomWidth: 5,
-    borderRightWidth: 5,
-    borderRadius: 5,
+    borderLeftWidth: 2,
+    borderBottomWidth: 2,
+    borderBottomLeftRadius: 5,
+    position: "absolute",
+    top: 60,
+    right: 0,
     padding: 5,
-
-    fontSize: 16,
-    marginBottom: 10,
-  },
-  prepTime: {
-    fontSize: 16,
-    marginBottom: 10,
+    fontSize: 20,
   },
   ingredients: {
+    paddingLeft: 20,
     fontSize: 16,
   },
-  steps: {
-    fontSize: 20,
+  description: {
+    color: "#353535",
+    paddingLeft: 20,
+    fontSize: 16,
     marginBottom: 10,
   },
   error: {

@@ -12,7 +12,9 @@ interface Recipe {
 interface RecipeContextProps {
   recipes: Recipe[];
   activeRecipe: Recipe | null;
+  activeGroupId: number | null;
   setActiveRecipe: (recipe: Recipe) => void;
+  setActiveGroupId: (id: number) => void;
   addRecipe: (recipe: Recipe) => void;
   getRecipeById: (id: number) => Recipe | undefined;
 }
@@ -24,6 +26,7 @@ export const RecipeProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [activeRecipe, setActiveRecipeState] = useState<Recipe | null>(null);
+  const [activeGroupId, setActiveGroupIdState] = useState<number | null>(null);
 
   const addRecipe = (recipe: Recipe) => {
     setRecipes((prevRecipes) => [...prevRecipes, recipe]);
@@ -37,12 +40,18 @@ export const RecipeProvider: React.FC<{ children: ReactNode }> = ({
     setActiveRecipeState(recipe);
   };
 
+  const setActiveGroupId = (id: number) => {
+    setActiveGroupIdState(id);
+  };
+
   return (
     <RecipeContext.Provider
       value={{
         recipes,
         activeRecipe,
+        activeGroupId,
         setActiveRecipe,
+        setActiveGroupId,
         addRecipe,
         getRecipeById,
       }}

@@ -5,6 +5,7 @@ import {
   View,
   ActivityIndicator,
   Alert,
+  Text,
 } from "react-native";
 import { API_ROUTES } from "../../apiConfig";
 import useAPI from "../hooks/useAPI";
@@ -13,28 +14,20 @@ import Header from "../components/Header";
 import CustomScroll from "../components/CustomScroll";
 import List from "../components/List";
 import New from "../components/New";
+import { useRecipe } from "../context/RecipeContext";
 
 export default function Groups() {
-  const [groups, setGroups] = useState<{ name: string }[]>([]);
-  const [activeGroup, setActiveGroup] = useState<string | null>(null);
+  const [groups, setGroups] = useState<{ id: number; name: string }[]>([]);
+  const { activeGroupId, setActiveGroupId } = useRecipe();
   const { apiRequest, loading } = useAPI();
 
   const fetchGroups = async () => {
     const data = await apiRequest({
       method: "GET",
-      url: API_ROUTES.GROUPS_BY_USER,
+      url: API_ROUTES.GROUPS,
       headers: true,
     });
     setGroups(data);
-  };
-
-  const fetchGroupRecipes = async () => {
-    const data = await apiRequest({
-      method: "GET",
-      url: API_ROUTES.GROUP_BY_USER,
-      headers: true,
-    });
-    setActiveGroup(data);
   };
 
   useEffect(() => {
@@ -43,16 +36,42 @@ export default function Groups() {
 
   const options = groups.map((group) => ({
     text: group.name,
-    onPress: () => Alert.alert("Option Pressed", `You pressed ${group.name}`),
+    onPress: () => {
+      setActiveGroupId(group.id);
+      Alert.alert("Group Selected", `You selected ${group.name}`);
+    },
   }));
+
+  const fetchGroupRecipes = async () => {
+    if (!activeGroupId) return;
+    const data = await apiRequest({
+      method: "GET",
+      url: `${API_ROUTES.GROUPS}/${activeGroupId}/recipes`,
+      headers: true,
+    });
+    console.log(data);
+  };
+
+  useEffect(() => {
+    if (activeGroupId) {
+      fetchGroupRecipes();
+    }
+  }, [activeGroupId]);
 
   return (
     <Background>
       <View style={styles.container}>
-        <Header title="COOKED" onPress={fetchGroupRecipes} />
+        <Header title="COOKED" onPress={fetchGroups} />
         {loading ? (
           <View style={styles.loaderContainer}>
             <ActivityIndicator size="large" color="#353535" />
+          </View>
+        ) : activeGroupId ? (
+          <View style={styles.activeGroupContainer}>
+            <Text style={styles.activeGroupText}>
+              Mostrando recetas del grupo {activeGroupId}
+            </Text>
+            {/* Aquí puedes renderizar las recetas del grupo activo */}
           </View>
         ) : (
           <CustomScroll contentContainerStyle={styles.scrollViewContent}>
@@ -82,5 +101,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginHorizontal: 5,
     borderRadius: 20,
+  },
+  activeGroupContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  activeGroupText: {
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });

@@ -1,6 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Platform, TouchableOpacity } from "react-native";
 import CustomText from "./CustomText";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 interface OptionProps {
   text: string;
@@ -11,7 +12,7 @@ const Option: React.FC<OptionProps> = ({ text, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
       <CustomText style={styles.text}>{text}</CustomText>
-      <CustomText style={styles.arrow}>{">"}</CustomText>
+      <Icon name="chevron-right" style={styles.arrow} />
     </TouchableOpacity>
   );
 };
@@ -33,7 +34,7 @@ const styles = StyleSheet.create({
   },
   arrow: {
     fontSize: 15,
-    fontFamily: "Questrial",
+    color: "#888888",
     maxWidth: "5%",
     marginVertical: "auto",
   },
