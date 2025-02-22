@@ -8,9 +8,13 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { useRouter } from "expo-router";
+import { API_ROUTES } from "../apiConfig";
+import useAPI from "./hooks/useAPI";
 import Background from "./components/Background";
 import Header from "./components/Header";
 import { useRecipe } from "./context/RecipeContext";
+import CustomText from "./components/CustomText";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const { height } = Dimensions.get("window");
 
@@ -18,6 +22,22 @@ const RecipeView: React.FC = () => {
   const router = useRouter();
   const { activeRecipe } = useRecipe();
   const [imageLoading, setImageLoading] = useState(true);
+  const [steps, setSteps] = useState([]);
+  const { apiRequest } = useAPI();
+
+  const fetchSteps = async () => {
+    if (!activeRecipe) return;
+    const data = await apiRequest({
+      method: "GET",
+      url: `${API_ROUTES.RECIPES}/${activeRecipe.id}/steps`,
+      headers: true,
+    });
+    setSteps(data);
+  };
+
+  const goBack = () => {
+    router.back();
+  };
 
   if (!activeRecipe) {
     return (
@@ -32,7 +52,6 @@ const RecipeView: React.FC = () => {
 
   return (
     <Background>
-      <Header title="Recipe" onPress={() => router.back()} />
       <View style={styles.imageContainer}>
         {imageLoading && (
           <ActivityIndicator
@@ -41,19 +60,30 @@ const RecipeView: React.FC = () => {
             color="#353535"
           />
         )}
+        <Icon
+          name="arrow-left"
+          style={styles.goBack}
+          onPress={() => router.back()}
+        />
         <Image
-          source={{ uri: activeRecipe.imageUrl }}
+          source={
+            activeRecipe.imageUrl ? { uri: activeRecipe.imageUrl } : undefined
+          }
           style={styles.image}
           onLoad={() => setImageLoading(false)}
           onError={() => setImageLoading(false)}
         />
+        <CustomText style={styles.watermark}>Cooked</CustomText>
       </View>
       <View style={styles.container}>
-        <Text style={styles.title}>{activeRecipe.title}</Text>
+        <CustomText fontFamily="Bebas" style={styles.title}>
+          {activeRecipe.title}
+        </CustomText>
         <Text style={styles.description}>{activeRecipe.description}</Text>
         <Text style={styles.prepTime}>
           Prep Time: {activeRecipe.prepTime} mins
         </Text>
+        <Text style={styles.steps}>Ingredients</Text>
         <Text style={styles.ingredients}>{activeRecipe.ingredients}</Text>
       </View>
     </Background>
@@ -64,12 +94,33 @@ const styles = StyleSheet.create({
   imageContainer: {
     position: "relative",
     width: "100%",
-    height: height * 0.35,
+    height: height * 0.45,
+  },
+  goBack: {
+    position: "absolute",
+    top: 60,
+    left: 25,
+    fontSize: 30,
+    color: "#D1D1D1",
+    zIndex: 1,
+    shadowColor: "#000",
+    shadowOffset: { width: 4, height: 2 },
   },
   image: {
     width: "100%",
     height: "100%",
     position: "absolute",
+  },
+  watermark: {
+    position: "absolute",
+    bottom: 30,
+    left: 20,
+    fontSize: 50,
+    color: "#ffffff",
+    opacity: 0.5,
+    textShadowColor: "rgba(0, 0, 0, 0.75)",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 5,
   },
   loader: {
     position: "absolute",
@@ -79,18 +130,29 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    padding: 20,
-    backgroundColor: "#fff",
+    backgroundColor: "#D1D1D1",
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     marginTop: -30,
   },
   title: {
-    fontSize: 24,
-    fontWeight: "bold",
+    backgroundColor: "#353535",
+    color: "#ffffff",
+    padding: 5,
+    fontSize: 35,
     marginBottom: 10,
   },
   description: {
+    backgroundColor: "#ffffff",
+    color: "#353535",
+    borderColor: "#353535",
+    borderLeftWidth: 1,
+    borderTopWidth: 1,
+    borderBottomWidth: 5,
+    borderRightWidth: 5,
+    borderRadius: 5,
+    padding: 5,
+
     fontSize: 16,
     marginBottom: 10,
   },
@@ -100,6 +162,10 @@ const styles = StyleSheet.create({
   },
   ingredients: {
     fontSize: 16,
+  },
+  steps: {
+    fontSize: 20,
+    marginBottom: 10,
   },
   error: {
     fontSize: 18,

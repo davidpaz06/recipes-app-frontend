@@ -4,7 +4,7 @@ import { useFonts } from "expo-font";
 
 interface CustomTextProps extends TextProps {
   children: React.ReactNode;
-  fontFamily?: "Bebas" | "Questrial"; // Propiedad opcional para seleccionar la fuente
+  fontFamily?: "Bebas" | "Questrial";
 }
 
 const CustomText: React.FC<CustomTextProps> = ({
@@ -31,7 +31,7 @@ const CustomText: React.FC<CustomTextProps> = ({
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 16, // Tamaño de fuente predeterminado
+    fontSize: 16,
   },
 });
 

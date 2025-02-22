@@ -31,7 +31,7 @@ export default function Groups() {
   const fetchGroupRecipes = async () => {
     const data = await apiRequest({
       method: "GET",
-      url: API_ROUTES.GROUP_BY_ID,
+      url: API_ROUTES.GROUP_BY_USER,
       headers: true,
     });
     setActiveGroup(data);
