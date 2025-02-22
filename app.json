@@ -4,7 +4,7 @@
     "slug": "app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/im-cooked.webp",
+    "icon": "./assets/images/im-cooked.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -13,7 +13,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/im-cooked.webp",
+        "foregroundImage": "./assets/images/im-cooked.png",
         "backgroundColor": "pink"
       },
       "statusBar": {
@@ -31,14 +31,14 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/im-cooked.webp"
+      "favicon": "./assets/images/im-cooked.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/im-cooked.webp",
+          "image": "./assets/images/im-cooked.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "pink"
